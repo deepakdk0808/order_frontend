@@ -8,7 +8,7 @@ import {
   Grid,
   Divider,
 } from "@mui/material";
-import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
+import  axiosInstance  from "../Utils/axiosUrl"; // Import the axios instance
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);

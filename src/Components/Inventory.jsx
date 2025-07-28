@@ -14,7 +14,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
-    import {axiosInstance} from "../Utils/axiosUrl"; // Import the axios instance
+    import axiosInstance from "../Utils/axiosUrl"; // Import the axios instance
 
 const InventoryPage = () => {
 

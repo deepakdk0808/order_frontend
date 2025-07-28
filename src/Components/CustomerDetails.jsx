@@ -8,7 +8,7 @@ import {
   CircularProgress,
   Paper,
 } from "@mui/material";
-import { axiosInstance } from "../Utils/axiosUrl";
+import  axiosInstance  from "../Utils/axiosUrl";
 
 const CustomerDetails = () => {
   const { id } = useParams();

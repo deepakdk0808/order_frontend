@@ -11,7 +11,7 @@ import {
   Box,
   Alert,
 } from "@mui/material";
-import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
+import axiosInstance from "../Utils/axiosUrl"; // Import the axios instance
 
 const socket = io("https://order-backend-3bgm.onrender.com"); // Adjust this URL if needed
 

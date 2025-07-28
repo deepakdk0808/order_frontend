@@ -15,7 +15,7 @@ import {
   Checkbox,
 } from "@mui/material";
 
-import {axiosInstance} from "../Utils/axiosUrl";    
+import axiosInstance from "../Utils/axiosUrl";    
 
 const InventoryDetails = () => {
   const [inventory, setInventory] = useState([]);

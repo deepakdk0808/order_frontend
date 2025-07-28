@@ -9,7 +9,7 @@ import {
   Alert,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
+import axiosInstance  from "../Utils/axiosUrl"; // Import the axios instance
 
 const Profile = () => {
   const [profile, setProfile] = useState({

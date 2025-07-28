@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Paper, Button, Grid, Box } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import { axiosInstance } from "../Utils/axiosUrl";
+import  axiosInstance  from "../Utils/axiosUrl";
 
 const Customer = () => {
   const [customers, setCustomers] = useState([]);
