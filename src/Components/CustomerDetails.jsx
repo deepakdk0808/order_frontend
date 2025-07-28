@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import {
   Typography,
   TextField,
@@ -9,6 +8,7 @@ import {
   CircularProgress,
   Paper,
 } from "@mui/material";
+import { axiosInstance } from "../Utils/axiosUrl";
 
 const CustomerDetails = () => {
   const { id } = useParams();
@@ -24,8 +24,8 @@ const CustomerDetails = () => {
   useEffect(() => {
     const fetchCustomerDetails = async () => {
       try {
-        const res = await axios.get(
-          `http://localhost:5001/api/customers/${id}`,
+        const res = await axiosInstance.get(
+          `/customers/${id}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -51,8 +51,8 @@ const CustomerDetails = () => {
   const handleUpdate = async () => {
     try {
       setUpdating(true);
-      const res = await axios.put(
-        `http://localhost:5001/api/customers/${id}`,
+      const res = await axiosInstance.put(
+        `/customers/${id}`,
         formData,
         {
           headers: {
@@ -159,11 +159,14 @@ const CustomerDetails = () => {
           if (!confirmDelete) return;
 
           try {
-            await axios.delete(`http://localhost:5001/api/customers/${id}`, {
-              headers: {
-                Authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            });
+            await axiosInstance.delete(
+              `/customers/${id}`,
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+              }
+            );
             alert("Customer deleted successfully");
             window.location.href = "/customer"; // redirect to customer list or homepage
           } catch (err) {

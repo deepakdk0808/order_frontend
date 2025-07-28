@@ -42,8 +42,8 @@ const AuthPage = () => {
     try {
       const url =
         tab === 0
-          ? "http://localhost:5001/api/auth/signup"
-          : "http://localhost:5001/api/auth/login";
+          ? "https://order-backend-3bgm.onrender.com/api/auth/signup"
+          : "https://order-backend-3bgm.onrender.com/api/auth/login";
 
       const payload =
         tab === 0
@@ -67,7 +67,7 @@ const AuthPage = () => {
 
         // Store user info (like role) for later use (e.g. navbar)
         localStorage.setItem("user", JSON.stringify({ role: decoded.role }));
-        
+
         if (decoded.role === "admin") {
           navigate("/customer");
         } else {

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import io from "socket.io-client";
 import {
   Container,
@@ -12,8 +11,9 @@ import {
   Box,
   Alert,
 } from "@mui/material";
+import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
 
-const socket = io("http://localhost:5001"); // Adjust this URL if needed
+const socket = io("https://order-backend-3bgm.onrender.com"); // Adjust this URL if needed
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
@@ -25,8 +25,8 @@ const Orders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:5001/api/orders/my/current",
+      const res = await axiosInstance.get(
+        "/orders/my/current",
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -41,8 +41,8 @@ const Orders = () => {
 
   const handleCancel = async (orderId) => {
     try {
-      await axios.put(
-        `http://localhost:5001/api/orders/${orderId}/cancel`,
+      await axiosInstance.put(
+        `/orders/${orderId}/cancel`,
         {},
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -58,8 +58,8 @@ const Orders = () => {
     if (!nextStatus) return;
 
     try {
-      await axios.patch(
-        `http://localhost:5001/api/orders/${orderId}/status`,
+      await axiosInstance.patch(
+        `/orders/${orderId}/status`,
         { status: nextStatus },
         { headers: { Authorization: `Bearer ${token}` } }
       );

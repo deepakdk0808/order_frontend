@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Container,
   Typography,
@@ -15,6 +14,8 @@ import {
   Paper,
   Checkbox,
 } from "@mui/material";
+
+import {axiosInstance} from "../Utils/axiosUrl";    
 
 const InventoryDetails = () => {
   const [inventory, setInventory] = useState([]);
@@ -35,9 +36,12 @@ const InventoryDetails = () => {
 
   const fetchInventory = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/inventory", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await axiosInstance.get(
+        "/inventory",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setInventory(res.data);
     } catch (err) {
       console.error("Error fetching inventory:", err);
@@ -50,7 +54,7 @@ const InventoryDetails = () => {
 
   const handleAdd = async () => {
     try {
-      await axios.post("http://localhost:5001/api/inventory", newItem, {
+      await axiosInstance.post("/inventory", newItem, {
         headers: { Authorization: `Bearer ${token}` },
       });
       setNewItem({
@@ -70,9 +74,13 @@ const InventoryDetails = () => {
 
   const handleUpdate = async (id) => {
     try {
-      await axios.put(`http://localhost:5001/api/inventory/${id}`, editItem, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axiosInstance.put(
+        `/inventory/${id}`,
+        editItem,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setEditMode(null);
       fetchInventory();
     } catch (err) {
@@ -82,7 +90,7 @@ const InventoryDetails = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5001/api/inventory/${id}`, {
+      await axiosInstance.delete(`/inventory/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       fetchInventory();

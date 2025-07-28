@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Typography, Paper, Button, Grid, Box } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../Utils/axiosUrl";
 
 const Customer = () => {
   const [customers, setCustomers] = useState([]);
@@ -9,13 +9,16 @@ const Customer = () => {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/customers", {
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
-        },
-      });
+      const res = await axiosInstance.get(
+        "/customers",
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
+      );
       setCustomers(res.data.data);
-      console.log("Fetched customers:", res.data.data);
+     
     } catch (err) {
       alert(err.response?.data?.message || "Error fetching customers");
     }
@@ -25,7 +28,7 @@ const Customer = () => {
     if (!window.confirm("Are you sure you want to delete this customer?"))
       return;
     try {
-      await axios.delete(`http://localhost:5001/api/customers/${id}`, {
+      await axiosInstance.delete(`/customers/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

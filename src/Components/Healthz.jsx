@@ -1,4 +1,3 @@
-// Components/Health.jsx
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Container, Typography, CircularProgress } from "@mui/material";
@@ -8,7 +7,7 @@ const Healthz = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:5001/healthz")
+      .get("https://order-backend-3bgm.onrender.com/healthz")
       .then((res) => setStatus(res.data))
       .catch(() => setStatus({ message: "Service Unavailable" }));
   }, []);

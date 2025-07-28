@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   Container,
@@ -15,6 +14,7 @@ import {
   IconButton,
 } from "@mui/material";
 import { Add, Remove } from "@mui/icons-material";
+    import {axiosInstance} from "../Utils/axiosUrl"; // Import the axios instance
 
 const InventoryPage = () => {
 
@@ -27,7 +27,9 @@ const InventoryPage = () => {
   useEffect(() => {
     const fetchInventory = async () => {
       try {
-        const res = await axios.get("http://localhost:5001/api/inventory");
+        const res = await axiosInstance.get(
+          "/inventory"
+        );
         setInventory(res.data);
         const initialQuantities = {};
         res.data.forEach((item) => {
@@ -75,7 +77,7 @@ const InventoryPage = () => {
         paymentCollected: "Paid",
       };
 
-      await axios.post("http://localhost:5001/api/orders", payload, {
+      await axiosInstance.post("/orders", payload, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

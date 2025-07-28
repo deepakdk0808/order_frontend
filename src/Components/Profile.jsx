@@ -8,8 +8,8 @@ import {
   CircularProgress,
   Alert,
 } from "@mui/material";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -26,9 +26,12 @@ const Profile = () => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:5001/api/customers/me", {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        const res = await axiosInstance.get(
+          "/customers/me",
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         setProfile(res.data);
       } catch (err) {
         console.error("Error fetching profile:", err);
@@ -49,9 +52,13 @@ const Profile = () => {
   const handleUpdate = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.put("http://localhost:5001/api/customers/me", profile, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axiosInstance.put(
+        "/customers/me",
+        profile,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setAlert({ type: "success", message: "Profile updated successfully." });
     } catch (err) {
       console.error("Update failed:", err);
@@ -62,7 +69,7 @@ const Profile = () => {
   const handleDelete = async () => {
     try {
       const token = localStorage.getItem("token");
-      await axios.delete("http://localhost:5001/api/customers/me", {
+      await axiosInstance.delete("/customers/me", {
         headers: { Authorization: `Bearer ${token}` },
       });
       localStorage.clear();

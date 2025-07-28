@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import {
   Container,
   Typography,
@@ -9,6 +8,7 @@ import {
   Grid,
   Divider,
 } from "@mui/material";
+import { axiosInstance } from "../Utils/axiosUrl"; // Import the axios instance
 
 const OrderHistory = () => {
   const [orders, setOrders] = useState([]);
@@ -17,8 +17,8 @@ const OrderHistory = () => {
   const fetchOrderHistory = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get(
-        "http://localhost:5001/api/orders/my/history",
+      const response = await axiosInstance.get(
+        "/orders/my/history",
         {
           headers: {
             Authorization: `Bearer ${token}`,
