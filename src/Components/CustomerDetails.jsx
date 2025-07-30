@@ -181,18 +181,11 @@ const CustomerDetails = () => {
         sx={{ mt: 2, ml: 2 }}
         onClick={async () => {
           try {
-            const response 
-            = await axiosInstance.get(
-              `/customers/${id}/export-csv`,
-              
-              // =await axiosInstance.get(`http://localhost:5001/api/customers/${id}/export-csv`,
-              
-              
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-                responseType: "blob", // important to receive CSV as a blob
+            const response = await axiosInstance.get(`/customers/${id}/export-csv`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+              responseType: "blob", // important to receive CSV as a blob
               }
             );
 

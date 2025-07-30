@@ -9,8 +9,8 @@ const Customer = () => {
 
   const fetchCustomers = async () => {
     try {
-      const res = await axiosInstance.get(
-        "/customers",
+      const res 
+      = await axiosInstance.get("/customers",
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
