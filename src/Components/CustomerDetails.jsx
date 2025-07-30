@@ -159,14 +159,11 @@ const CustomerDetails = () => {
           if (!confirmDelete) return;
 
           try {
-            await axiosInstance.delete(
-              `/customers/${id}`,
-              {
-                headers: {
-                  Authorization: `Bearer ${localStorage.getItem("token")}`,
-                },
-              }
-            );
+            await axiosInstance.delete(`/customers/${id}`, {
+              headers: {
+                Authorization: `Bearer ${localStorage.getItem("token")}`,
+              },
+            });
             alert("Customer deleted successfully");
             window.location.href = "/customer"; // redirect to customer list or homepage
           } catch (err) {
@@ -176,6 +173,45 @@ const CustomerDetails = () => {
         }}
       >
         Delete Customer
+      </Button>
+
+      <Button
+        variant="outlined"
+        color="secondary"
+        sx={{ mt: 2, ml: 2 }}
+        onClick={async () => {
+          try {
+            const response 
+            = await axiosInstance.get(
+              `/customers/${id}/export-csv`,
+              
+              // =await axiosInstance.get(`http://localhost:5001/api/customers/${id}/export-csv`,
+              
+              
+              {
+                headers: {
+                  Authorization: `Bearer ${localStorage.getItem("token")}`,
+                },
+                responseType: "blob", // important to receive CSV as a blob
+              }
+            );
+
+            const blob = new Blob([response.data], { type: "text/csv" });
+            const url = window.URL.createObjectURL(blob);
+            const link = document.createElement("a");
+            link.href = url;
+            link.setAttribute("download", `customer_${id}_orders.csv`);
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            window.URL.revokeObjectURL(url);
+          } catch (error) {
+            console.error("Error exporting CSV:", error);
+            alert("Failed to export CSV");
+          }
+        }}
+      >
+        Download Customer CSV
       </Button>
     </Box>
   );
